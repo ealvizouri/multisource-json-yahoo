@@ -7,7 +7,7 @@ const store = configureStore({
     search: searchSliceReducer
   },
   middleware: getDefaultMiddleware => {
-    getDefaultMiddleware({
+    return getDefaultMiddleware({
       thunk: {
         extraArgument: {
           fakeFetch
