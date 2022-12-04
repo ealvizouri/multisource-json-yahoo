@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker';
+import BrowserLog from '../BrowserLog';
 
-class Factory {
+class Factory extends BrowserLog {
   constructor({ 
     props = {},
     matchingSources = [],
@@ -8,10 +9,10 @@ class Factory {
     logOn = false,
     orderKeys = null
   }) {
+    super(logOn);
     this.props = props;
     this.matchingSources = matchingSources;
     this.defaultSeparator = defaultSeparator;
-    this.logOn = logOn;
     this.orderKeys = orderKeys;
     this.currentEntity = null;
   }
@@ -116,24 +117,6 @@ class Factory {
       return Array.isArray(res) ? res : [res];
     }
     return obj.split(' ');
-  }
-
-  log(args) {
-    if (this.logOn) {
-      console.log(...args);
-    }
-  }
-
-  logGroup(args) {
-    if (this.logOn) {
-      console.group(...args);
-    }
-  }
-
-  logGroupEnd() {
-    if (this.logOn) {
-      console.groupEnd();
-    }
   }
 }
 
