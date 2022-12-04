@@ -1,0 +1,13 @@
+:root {
+  --color-text: #484848;
+  --color-border: #d1d1d1;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
