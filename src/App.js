@@ -14,19 +14,18 @@ const contactFactory = new ContactFactory();
 const gDriveFactory = new GDriveFactory();
 const imageFactory = new ImageFactory();
 const tweetFactory = new TweetFactory();
-const slackFactory = new SlackFactory();
+const slackFactory = new SlackFactory('Yahoo');
 
-/* 
+
 console.log(contactFactory.makeSome(1).pop());
-
-console.log(gDriveFactory.makeSome(1).pop());
 
 console.log(imageFactory.makeSome(1).pop());
 
 console.log(tweetFactory.makeSome(1).pop());
-*/
 
 console.log(slackFactory.makeSome(1).pop());
+
+console.log(gDriveFactory.makeSome(1).pop());
 
 function App() {
   return (

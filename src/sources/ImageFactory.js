@@ -2,67 +2,37 @@ import Factory from './Factory';
 import { faker } from '@faker-js/faker';
 
 class ImageFactory extends Factory {
-  constructor() {
+  defineProps() {
     const dimmensions = [
       [640, 480], // [width, height]
       [480, 600],
     ]
-    super({
-      props: {
-        id: {
-          rules: [
-            {
-              rule:'datatype.number',
-              args: {
-                min: 1000
-              }
-            }
-          ]
-        },
-        image: {
-          rules: [
-            {
-              rule: 'image.image',
-              args: () => {
-                const dimmensionIndex = faker.datatype.number({ min: 0, max: dimmensions.length - 1 });
-                return [
-                  ...dimmensions[dimmensionIndex],
-                  true, // randomize
-                ];
-              }
-            }
-          ],
-          separator: '/',
-          matchingTermCallback: (obj) => obj.split('/').pop().split('?').shift()
-        },
-        description: {
-          rules: [
-            {
-              rule: 'random.words',
-              args: faker.datatype.number({ min: 5, max: 10 })
-            }
-          ]
-        },
-        created: {
-          rules: [
-            {
-              rule: 'date.recent',
-              args: faker.datatype.number({ min: 1, max: 5 })
-            }
-          ]
-        }
-      },
-      matchingSources: [
-        'image',
-        'description'
-      ],
-      orderKeys: [
-        'id',
-        'image',
-        'description',
-        'created'
-      ]
-    });
+    this.props.set(
+      'id',
+      () => faker.datatype.number({ min: 1000 })
+    );
+    this.props.set(
+      'image',
+      () => {
+        const randomIndex = faker.datatype.number({ min: 0, max: dimmensions.length - 1 });
+        const [w, h] = dimmensions[randomIndex];
+        const image = faker.image.image(w, h, true);
+        this.addMatchingTerm(image.split('/').pop().split('?').shift());
+        return image;
+      }
+    );
+    this.props.set(
+      'description',
+      () => {
+        const description = faker.random.words(faker.datatype.number({ min: 5, max: 10 }));
+        this.addMatchingTerm(description.split(' ').slice(0, 3));
+        return description;
+      }
+    );
+    this.props.set(
+      'created',
+      () => faker.datatype.number({ min: 1, max: 5 })
+    );
   }
 }
 

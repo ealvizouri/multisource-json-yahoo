@@ -1,24 +1,13 @@
 import { faker } from '@faker-js/faker';
 import BrowserLog from '../BrowserLog';
 
-class Factory extends BrowserLog {
-  constructor({ 
-    props = {},
-    matchingSources = [],
-    defaultSeparator = ' ',
-    logOn = false,
-    orderKeys = null
-  }) {
+class Factor extends BrowserLog {
+  constructor(additionalProps, logOn = false) {
     super(logOn);
-    this.props = props;
-    this.matchingSources = matchingSources;
-    this.defaultSeparator = defaultSeparator;
-    this.orderKeys = orderKeys;
+    this.props = new Map();
+    this.additionalProps = additionalProps;
     this.currentEntity = null;
-  }
-
-  getSeparator(obj) {
-    return obj.separator ?? this.defaultSeparator;
+    this.defineProps();
   }
 
   make() {
@@ -26,98 +15,43 @@ class Factory extends BrowserLog {
       matching_terms: []
     };
     this.currentEntity = entity;
-    const keys = this.orderKeys ?? Object.keys(this.props);
-    keys.filter(key => key !== 'matching_terms').forEach(key => {
-      entity[key] = this.processObject(this.props[key]);
-      if (this.matchingSources.includes(key)) {
-        this.addMatchingTerm(entity[key], entity, key);
-      }
+    this.props.forEach((faker, key) => {
+      entity[key] = faker(entity);
     });
     this.currentEntity = null;
     return entity;
   }
 
-  makeSome(max) {
-    const entities = [];
-    const limit = max ?? faker.datatype.number({ min: 1, max: 100 });
+  makeSome(max = 100) {
+    return this.repeat({
+      fn: () => this.make(),
+      min: 1,
+      max
+    });
+  }
+
+  repeat({ fn, min, max}) {
+    const repetitions = [];
+    const limit = max ?? faker.datatype.number({ min, max });
     for (let i = 0; i < limit; i++) {
-      entities.push(this.make());
+      repetitions.push(fn(i));
     }
-    return entities;
+    return repetitions;
   }
 
-  processObject(obj) {
-    const separator = this.getSeparator(obj);
-    if (obj.maxRepeat > 1) {
-      const results = [];
-      for (let i = 0; i < faker.datatype.number({ min: obj.minRepeat ?? 1, max: obj.maxRepeat }); i++) {
-        results.push(this.processRules(obj.rules, separator, obj.prefix));
-      }
-      return results;
+  addMatchingTerm(matchingTerm) {
+    if (!this.currentEntity) {
+      console.error('There\'s no currentEntity selected');
+      return;
     }
-    return this.processRules(obj.rules, separator, obj.prefix);
-  }
-
-  processRules(rules, separator, prefix) {
-    return rules.reduce((prev, curr) => {
-      return [...prev, this.processRule(curr)];
-    }, prefix ? [prefix] : []).join(separator);
-  }
-
-  normalizeRule(rule) {
-    if (typeof rule === 'string') {
-      return {
-        rule,
-        args: []
-      }
-    }
-    return rule;
-  }
-
-  processRule(rule) {
-    const nRule = this.normalizeRule(rule);
-    this.logGroup('rule: ', nRule.rule);
-    const ruleParts = nRule.rule.split('.');
-
-    let fk = faker;
-    for (let i = 0; i < ruleParts.length; i++) {
-      this.log(ruleParts[i]);
-      fk = fk[ruleParts[i]];
-    }
-    this.log('fk', typeof fk);
-    if (typeof fk === 'function') {
-      this.log(fk.name);
-      if (typeof nRule.args === 'function') {
-        const generatedArgs = nRule.args(this.currentEntity);
-        fk = Array.isArray(generatedArgs) ? fk(...generatedArgs) : fk(generatedArgs);
-      } else if (Array.isArray(nRule.args)) {
-        fk = fk(...nRule.args);
-      } else {
-        fk = fk(nRule.args);
-      }
-    }
-    this.logGroupEnd();
-    return fk;
-  }
-
-  addMatchingTerm(obj, entity, key) {
-    if (Array.isArray(obj)) {
-      obj.forEach(item => this.addMatchingTerm(item, entity, key));
+    if (Array.isArray(matchingTerm)) {
+      this.currentEntity.matching_terms = [...this.currentEntity.matching_terms, ...matchingTerm];
     } else {
-      entity.matching_terms = [
-        ...entity.matching_terms,
-        ...this.matchingTermCallback(obj, key)
-      ];
+      this.currentEntity.matching_terms.push(matchingTerm);
     }
   }
   
-  matchingTermCallback(obj, key) {
-    if (typeof this.props[key]?.matchingTermCallback === 'function') {
-      const res = this.props[key].matchingTermCallback(obj);
-      return Array.isArray(res) ? res : [res];
-    }
-    return obj.split(' ');
-  }
+  defineProps() {}
 }
 
-export default Factory;
+export default Factor;
