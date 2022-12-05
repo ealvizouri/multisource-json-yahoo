@@ -7,8 +7,12 @@ const ImagesContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    height: 55vh;
+    height: 54vh;
     overflow-y: scroll;
+
+    .spinner {
+      flex-basis: 100%;
+    }
   }
 `;
 

@@ -5,6 +5,12 @@ const TweetsContainer = styled.div`
   ul {
     overflow-y: scroll;
     height: 100px;
+
+    li.spinner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 `;
 

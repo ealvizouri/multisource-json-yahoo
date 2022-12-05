@@ -31,7 +31,7 @@ export const {
 export const { setLoading, setImages, addImages } = imagesSlice.actions;
 
 export const fetchImages = (params = {}) => async (dispatch, getState, { fakeFetch }) => {
-  const { max = 10, precise = true } = params;
+  const { max = 5, precise = true } = params;
   dispatch(setLoading(true));
   const response = await fakeFetch(() => {
     return imageFactory.makeSome(max, precise);
