@@ -18,7 +18,7 @@ const Images = () => {
     <ImagesContainer>
       <WidgetTitle>Images</WidgetTitle>
       <div ref={imagesRef} className="gallery">
-        {filteredImages && filteredImages.length && filteredImages.map(item => (
+        {filteredImages.map(item => (
           <Image
             key={item.id}
             src={item.image}
