@@ -1,54 +1,63 @@
 import Factory from './Factory';
+import { faker } from '@faker-js/faker';
 
 class ContactFactory extends Factory {
   constructor() {
-    super({
-      props: {
-        id: {
-          rules: [
-            {
-              rule:'datatype.number',
-              args: {
-                min: 1000
-              }
-            }
-          ]
-        },
-        name: {
-          rules: [
-            'name.firstName',
-            'name.lastName'
-          ]
-        },
-        company: {
-          rules: ['company.name']
-        },
-        emails: {
-          rules: ['internet.email'],
-          maxRepeat: 3
-        },
-        phones: {
-          rules: ['phone.number'],
-          maxRepeat: 2
-        },
-        /* matching_terms: {
-          auto: true
-        }, // ["yahoo", "john", "john", "doe"], */
-        last_contact: {
-          rules: [
-            {
-              rule: 'date.recent',
-              args: 1
-            }
-          ]
-        }
-      },
-      matchingSources: [
-        'name',
-        'company',
-        'emails'
-      ]
-    });
+    super();
+    this.defineProps();
+  }
+
+  defineProps() {
+    this.props.set(
+      'id',
+      () => faker.datatype.uuid()
+    );
+    this.props.set(
+      'name',
+      () => {
+        const firstName = faker.name.firstName();
+        const lastName = faker.name.lastName();
+        this.addMatchingTerm(firstName);
+        this.addMatchingTerm(lastName);
+        return `${firstName} ${lastName}`;
+      }
+    );
+    this.props.set(
+      'company',
+      () => {
+        const companyName = faker.company.name();
+        this.addMatchingTerm(companyName.substring(0, companyName.indexOf(' ')));
+        return companyName;
+      }
+    );
+    this.props.set(
+      'emails',
+      () => {
+        const emails = this.repeat({
+          fn: () => faker.internet.email(),
+          min: 1,
+          max: 3
+        });
+
+        emails.forEach(email => {
+          this.addMatchingTerm(email.substring(0, email.indexOf('@')));
+        });
+
+        return emails;
+      }
+    );
+    this.props.set(
+      'phones',
+      () => this.repeat({
+        fn: () => faker.phone.number(),
+        min: 1,
+        max: 3
+      })
+    );
+    this.props.set(
+      'last_contact',
+      () => faker.date.recent(1).toISOString()
+    );
   }
 }
 

@@ -1,10 +1,11 @@
-const fakeFetch = (callback, timeout = 2000) => {
+const fakeFetch = (callback, timeout = 4000) => {
   return new Promise(resolve => {
     setTimeout(async () => {
       if (typeof callback === 'function') {
-        await callback();
+        resolve(await callback());
+      } else {
+        resolve();
       }
-      resolve();
     }, timeout);
   });
 }
