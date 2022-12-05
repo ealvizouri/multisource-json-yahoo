@@ -10,7 +10,7 @@ class ContactFactory extends Factory {
   defineProps() {
     this.props.set(
       'id',
-      () => faker.datatype.number({ min: 1000 })
+      () => faker.datatype.uuid()
     );
     this.props.set(
       'name',

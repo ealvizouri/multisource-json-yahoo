@@ -11,7 +11,7 @@ const Slacks = () => {
   const slackMessages = useSelector(selectSlackMessages);
   const dispatch = useDispatch();
   const filteredSlackMessages = useFilter(slackMessages);
-  useScroll(slackRef, () => dispatch(fetchSlackMessages()));
+  /* useScroll(slackRef, () => dispatch(fetchSlackMessages()), isLoading); */
 
   return (
     <SlacksContainer>
@@ -19,7 +19,12 @@ const Slacks = () => {
         Slacks
       </WidgetTitle>
       <ul ref={slackRef}>
-        {filteredSlackMessages.map(item => <li key={item.id}>{item.author} - {item.message}</li>)}
+        {filteredSlackMessages.map(item => (
+          <li key={item.id}>
+            <div className="author">{item.author} - <span>{item.channel}</span></div>
+            <div className="message">{item.message}</div>
+          </li>
+        ))}
         {isLoading && <li><Spinner /></li>}
       </ul>
     </SlacksContainer>

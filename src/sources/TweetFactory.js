@@ -4,6 +4,10 @@ import { faker } from '@faker-js/faker';
 class TweetFactory extends Factory {
   defineProps() {
     this.props.set(
+      'id',
+      () => faker.datatype.number({ min: 1000000 })
+    );
+    this.props.set(
       'user',
       () => {
         const username = faker.internet.userName();

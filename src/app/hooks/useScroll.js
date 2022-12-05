@@ -1,14 +1,16 @@
 import { useEffect, useCallback } from "react";
 
-const useScroll = (suspectRef, dispatch) => {
+const useScroll = (suspectRef, dispatch, isLoading) => {
   const handleScroll = useCallback(() => {
-    const { current } = suspectRef;
-    if (current) {
-      if (current.scrollTop !== (current.scrollHeight -current.offsetHeight)) return;
-      console.log('Fetch items!');
-      dispatch();
+    if (!isLoading) {
+      const { current } = suspectRef;
+      if (current) {
+        if (current.scrollTop !== (current.scrollHeight -current.offsetHeight)) return;
+        console.log('Fetch items!');
+        dispatch();
+      }
     }
-  }, [dispatch]);
+  }, [dispatch, isLoading]);
 
   useEffect(() => {
     const { current } = suspectRef;

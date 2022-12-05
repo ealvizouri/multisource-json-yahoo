@@ -11,7 +11,7 @@ const Contacts = () => {
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
   const filteredContacts = useFilter(contacts);
-  useScroll(contactsRef, dispatch(fetchContacts()));
+  useScroll(contactsRef, () => dispatch(fetchContacts()), isLoading);
 
   return (
     <ContactsContainer>
@@ -19,7 +19,14 @@ const Contacts = () => {
         Contacts
       </WidgetTitle>
       <ul ref={contactsRef}>
-        {filteredContacts && filteredContacts.length && filteredContacts.map(item => <li key={item.id}>{item.name}</li>)}
+        {filteredContacts.map(item => (
+          <li key={item.id}>
+            <div className="name">
+              {item.name} - <span>{item.phones[0]}</span>
+            </div>
+            <div className="company">{item.company}</div>
+          </li>
+        ))}
         {isLoading && <li className="spinner"><Spinner /></li>}
       </ul>
     </ContactsContainer>

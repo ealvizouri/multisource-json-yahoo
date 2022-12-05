@@ -7,6 +7,28 @@ const ContactsContainer = styled.div`
   ul {
     height: calc(18vh - 1rem);
     overflow-y: scroll;
+
+    li {
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: center;
+      flex-flow: column;
+      .name, .company {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .name {
+        width: calc(100% - 1rem);
+        span {
+          color: var(--color-text-light);
+        }
+      }
+      .company {
+        color: var(--color-text-light);
+        width: calc(100% - 2rem);
+      }
+    }
   }
 `;
 

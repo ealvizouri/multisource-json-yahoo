@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { SlackFactory } from "../../sources";
 
-const slackFactory = new SlackFactory();
+const slackFactory = new SlackFactory('yahoo');
 
 const slackSlice = createSlice({
   name: 'slack',

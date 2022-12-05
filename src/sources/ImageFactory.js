@@ -9,7 +9,7 @@ class ImageFactory extends Factory {
     ]
     this.props.set(
       'id',
-      () => faker.datatype.number({ min: 1000 })
+      () => faker.datatype.number({ min: 1000000 })
     );
     this.props.set(
       'image',

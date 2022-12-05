@@ -11,7 +11,7 @@ const Tweets = () => {
   const tweets = useSelector(selectTweets);
   const dispatch = useDispatch();
   const filteredTweets = useFilter(tweets);
-  useScroll(tweetsRef, () => dispatch(fetchTweets()));
+  useScroll(tweetsRef, () => dispatch(fetchTweets()), isLoading);
 
   return (
     <TweetsContainer>
@@ -20,7 +20,7 @@ const Tweets = () => {
       </WidgetTitle>
       <ul ref={tweetsRef}>
         {filteredTweets.map(item => (
-          <li key={item.timestamp}>
+          <li key={item.id}>
             <div className="username">{item.user}</div>
             <div className="tweet">{item.message}</div>
           </li>

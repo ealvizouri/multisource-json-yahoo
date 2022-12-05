@@ -11,7 +11,7 @@ const GDrive = () => {
   const gDriveFiles = useSelector(selectFiles);
   const dispatch = useDispatch();
   const filteredFiles = useFilter(gDriveFiles);
-  useScroll(gDriveRef, dispatch(fetchFiles()));
+  /* useScroll(gDriveRef, () => dispatch(fetchFiles()), isLoading); */
 
   return (
     <GDriveContainer>
@@ -19,7 +19,14 @@ const GDrive = () => {
         GDrive
       </WidgetTitle>
       <ul ref={gDriveRef}>
-        {filteredFiles && filteredFiles.length && filteredFiles.map(item => <li key={item.id}>{item.title} - {item.path}</li>)}
+        {
+          filteredFiles.map(item => (
+            <li key={item.id}>
+              <div className="title">{item.title}</div>
+              <div className="path">{item.path}</div>
+            </li>
+          ))
+        }
         {isLoading && <li className="spinner"><Spinner /></li>}
       </ul>
     </GDriveContainer>
