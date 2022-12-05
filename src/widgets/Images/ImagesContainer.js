@@ -7,7 +7,7 @@ const ImagesContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    height: 54vh;
+    height: 65vh;
     overflow-y: scroll;
 
     .spinner {

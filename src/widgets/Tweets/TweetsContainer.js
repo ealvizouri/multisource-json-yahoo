@@ -22,7 +22,7 @@ const TweetsContainer = styled.div`
         width: calc(100% - 2rem);
       }
 
-      .spinner {
+      &.spinner {
         display: flex;
         justify-content: center;
         align-items: center;

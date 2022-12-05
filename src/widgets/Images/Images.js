@@ -12,7 +12,7 @@ const Images = () => {
   const imagesRef = useRef();
   const dispatch = useDispatch();
   const filteredImages = useFilter(images);
-  /* useScroll(imagesRef, () => dispatch(fetchImages()), isLoading); */
+  useScroll(imagesRef, () => dispatch(fetchImages()), isLoading);
   
   return (
     <ImagesContainer>

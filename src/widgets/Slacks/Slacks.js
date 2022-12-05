@@ -11,7 +11,7 @@ const Slacks = () => {
   const slackMessages = useSelector(selectSlackMessages);
   const dispatch = useDispatch();
   const filteredSlackMessages = useFilter(slackMessages);
-  /* useScroll(slackRef, () => dispatch(fetchSlackMessages()), isLoading); */
+  useScroll(slackRef, () => dispatch(fetchSlackMessages()), isLoading);
 
   return (
     <SlacksContainer>
@@ -25,7 +25,7 @@ const Slacks = () => {
             <div className="message">{item.message}</div>
           </li>
         ))}
-        {isLoading && <li><Spinner /></li>}
+        {isLoading && <li className="spinner"><Spinner /></li>}
       </ul>
     </SlacksContainer>
   )

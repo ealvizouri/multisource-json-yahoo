@@ -5,12 +5,11 @@ const useScroll = (suspectRef, dispatch, isLoading) => {
     if (!isLoading) {
       const { current } = suspectRef;
       if (current) {
-        if (current.scrollTop !== (current.scrollHeight -current.offsetHeight)) return;
-        console.log('Fetch items!');
+        if (current.scrollTop !== (current.scrollHeight - current.offsetHeight)) return;
         dispatch();
       }
     }
-  }, [dispatch, isLoading]);
+  }, [dispatch, isLoading, suspectRef]);
 
   useEffect(() => {
     const { current } = suspectRef;
@@ -22,7 +21,7 @@ const useScroll = (suspectRef, dispatch, isLoading) => {
         current.removeEventListener('scroll', handleScroll);
       }
     }
-  }, [handleScroll]);
+  }, [handleScroll, suspectRef]);
 }
 
 export default useScroll;

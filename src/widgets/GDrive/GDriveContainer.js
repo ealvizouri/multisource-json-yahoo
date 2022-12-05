@@ -24,6 +24,11 @@ const GDriveContainer = styled.div`
         color: var(--color-text-light);
         width: calc(100% - 2rem);
       }
+      &.spinner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 `;

@@ -11,7 +11,7 @@ const GDrive = () => {
   const gDriveFiles = useSelector(selectFiles);
   const dispatch = useDispatch();
   const filteredFiles = useFilter(gDriveFiles);
-  /* useScroll(gDriveRef, () => dispatch(fetchFiles()), isLoading); */
+  useScroll(gDriveRef, () => dispatch(fetchFiles()), isLoading);
 
   return (
     <GDriveContainer>

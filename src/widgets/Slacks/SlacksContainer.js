@@ -6,7 +6,7 @@ const SlacksContainer = styled.div`
 
   ul {
     overflow-y: scroll;
-    height: calc(18vh - 1rem);
+    height: calc(20vh);
 
     li {
       padding: 0.5rem 1rem;
@@ -27,6 +27,11 @@ const SlacksContainer = styled.div`
       .message {
         color: var(--color-text-light);
         width: calc(100% - 2rem);
+      }
+      &.spinner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
   }
