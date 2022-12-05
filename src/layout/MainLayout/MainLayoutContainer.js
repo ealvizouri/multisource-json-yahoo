@@ -21,7 +21,7 @@ const MainLayoutContainer = styled.div`
     column-gap: 0.2rem;
     row-gap: 0.5rem;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 1fr 8fr 1fr;
+    grid-template-rows: 51px calc(100% - 200px) 100px;
     grid-template-areas: 
     "header header header header"
     "sidebar main main main"

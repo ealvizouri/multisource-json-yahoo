@@ -38,7 +38,7 @@ class GDriveFactory extends Factory {
     );
     this.props.set(
       'created',
-      () => faker.date.recent(faker.datatype.number({ min: 1, max: 5 }))
+      () => faker.date.recent(faker.datatype.number({ min: 1, max: 5 })).toISOString()
     );
   }
 }

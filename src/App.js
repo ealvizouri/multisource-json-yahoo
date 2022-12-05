@@ -4,7 +4,7 @@ import store from './app/store';
 import router from './app/router';
 import './App.css';
 
-import ContactFactory from './sources/ContactFactory';
+/* import ContactFactory from './sources/ContactFactory';
 import GDriveFactory from './sources/GDriveFactory';
 import ImageFactory from './sources/ImageFactory';
 import TweetFactory from './sources/TweetFactory';
@@ -25,7 +25,7 @@ console.log(tweetFactory.makeSome(1).pop());
 
 console.log(slackFactory.makeSome(1).pop());
 
-console.log(gDriveFactory.makeSome(1).pop());
+console.log(gDriveFactory.makeSome(1).pop()); */
 
 function App() {
   return (

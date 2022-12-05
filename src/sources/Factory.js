@@ -22,17 +22,18 @@ class Factor extends BrowserLog {
     return entity;
   }
 
-  makeSome(max = 100) {
+  makeSome(max = 100, precise = false) {
     return this.repeat({
       fn: () => this.make(),
       min: 1,
-      max
+      max,
+      precise
     });
   }
 
-  repeat({ fn, min, max}) {
+  repeat({ fn, min, max, precise}) {
     const repetitions = [];
-    const limit = max ?? faker.datatype.number({ min, max });
+    const limit = max && precise ? max : faker.datatype.number({ min, max });
     for (let i = 0; i < limit; i++) {
       repetitions.push(fn(i));
     }

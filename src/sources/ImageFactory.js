@@ -24,8 +24,8 @@ class ImageFactory extends Factory {
     this.props.set(
       'description',
       () => {
-        const description = faker.random.words(faker.datatype.number({ min: 5, max: 10 }));
-        this.addMatchingTerm(description.split(' ').slice(0, 3));
+        const description = faker.random.words(faker.datatype.number({ min: 2, max: 5 }));
+        this.addMatchingTerm(description.split(' '));
         return description;
       }
     );

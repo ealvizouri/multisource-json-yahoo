@@ -1,13 +1,25 @@
-import Contacts from "../../widgets/Contacts";
+import {
+  ContactsWidget,
+  GDriveWidget,
+  ImagesWidget,
+  SlacksWidget,
+  TweetsWidget,
+} from "../../widgets";
 
 const HomePage = () => {
   return (
     <>
       <div className="layout-sidebar">
-        <Contacts />
+        <ContactsWidget />
+        <SlacksWidget />
+        <GDriveWidget />
       </div>
-      <div className="layout-main">Main</div>
-      <div className="layout-footer">Footer</div>
+      <div className="layout-main">
+        <ImagesWidget />
+      </div>
+      <div className="layout-footer">
+        <TweetsWidget />
+      </div>
     </>
   );
 }

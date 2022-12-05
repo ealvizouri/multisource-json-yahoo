@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-const ContactsContainer = styled.div`
+const GDriveContainer = styled.div`
   border: 1px solid var(--color-border);
 `;
 
-export default ContactsContainer;
+export default GDriveContainer;

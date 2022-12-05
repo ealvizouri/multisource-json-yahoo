@@ -56,7 +56,7 @@ class ContactFactory extends Factory {
     );
     this.props.set(
       'last_contact',
-      () => faker.date.recent(1)
+      () => faker.date.recent(1).toISOString()
     );
   }
 }

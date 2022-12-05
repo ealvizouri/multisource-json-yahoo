@@ -21,7 +21,7 @@ class TweetFactory extends Factory {
     );
     this.props.set(
       'timestamp',
-      () => faker.date.recent(0)
+      () => faker.date.recent(0).toISOString()
     );
   }
 }
